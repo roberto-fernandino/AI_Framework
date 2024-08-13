@@ -45,4 +45,17 @@ impl Matrix {
         }
         return result;
     }
+
+    pub fn add(&self, other: &Matrix) -> Matrix {
+        if self.rows != other.rows || self.cols != other.cols {
+            panic!("Matrices must be the same size to add");
+        }
+        let mut result = Matrix::zeros(self.rows, self.cols);
+        for row in 0..self.rows {
+            for column in 0..self.cols {
+                result.data[row][column] = self.data[row][column] + other.data[row][column]
+            }
+        }
+        return result;
+    }
 }
