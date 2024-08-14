@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"id":"2b0b0f5cb9ccb3a0","type":"group","x":-40,"y":-230,"width":200,"height":330,"label":"Hidden Layer"},
+		{"id":"3447f105d96fb7b2","type":"group","x":-240,"y":-170,"width":160,"height":230,"label":"Input layer"},
+		{"id":"ee5d0aabffaaa4fb","x":180,"y":-192,"width":160,"height":220,"type":"group","label":"Output layer"},
+		{"id":"c695b20f35056870","type":"text","text":"Neuron","x":-220,"y":-150,"width":120,"height":60,"color":"1"},
+		{"id":"edafd4bba56b07ad","type":"text","text":"Neuron","x":-220,"y":-24,"width":120,"height":64,"color":"1"},
+		{"id":"a0724e1962e913d6","type":"text","text":"Neuron","x":0,"y":20,"width":120,"height":60,"color":"1"},
+		{"id":"c47d3a73b40c1f34","type":"text","text":"Neuron","x":0,"y":-210,"width":120,"height":60,"color":"1"},
+		{"id":"d484aa20e85916c5","type":"text","text":"Neuron","x":0,"y":-100,"width":120,"height":60,"color":"1"},
+		{"id":"d716b78cff2872dd","type":"text","text":"Output \nLayer","x":200,"y":-56,"width":120,"height":64,"color":"1"},
+		{"id":"fe162e46a4e3664d","type":"text","text":"Output \nLayer","x":200,"y":-172,"width":120,"height":60,"color":"1"},
+		{"id":"d402bf4a199ebe65","type":"file","file":"canvas/Weights.md","x":-580,"y":-360,"width":240,"height":180}
+	],
+	"edges":[
+		{"id":"b654b5874f11e351","fromNode":"c695b20f35056870","fromSide":"right","toNode":"c47d3a73b40c1f34","toSide":"left"},
+		{"id":"5fee64dde3305bca","fromNode":"c695b20f35056870","fromSide":"right","toNode":"d484aa20e85916c5","toSide":"left"},
+		{"id":"fac584a9fc6dc599","fromNode":"c695b20f35056870","fromSide":"right","toNode":"a0724e1962e913d6","toSide":"left"},
+		{"id":"86e956ae8a12027e","fromNode":"edafd4bba56b07ad","fromSide":"right","toNode":"d484aa20e85916c5","toSide":"left"},
+		{"id":"fb332faad597e071","fromNode":"edafd4bba56b07ad","fromSide":"right","toNode":"c47d3a73b40c1f34","toSide":"left"},
+		{"id":"8c53e0f1c5ca79c1","fromNode":"c47d3a73b40c1f34","fromSide":"right","toNode":"fe162e46a4e3664d","toSide":"left"},
+		{"id":"05ed79958483e6a4","fromNode":"c47d3a73b40c1f34","fromSide":"right","toNode":"d716b78cff2872dd","toSide":"left"},
+		{"id":"623d36ef70c66f0d","fromNode":"d484aa20e85916c5","fromSide":"right","toNode":"fe162e46a4e3664d","toSide":"left"},
+		{"id":"65e973ab1fa028a3","fromNode":"d484aa20e85916c5","fromSide":"right","toNode":"d716b78cff2872dd","toSide":"left"},
+		{"id":"7bf9363b8e44bd8a","fromNode":"a0724e1962e913d6","fromSide":"right","toNode":"fe162e46a4e3664d","toSide":"left"},
+		{"id":"9424f0c4d6b488ce","fromNode":"a0724e1962e913d6","fromSide":"right","toNode":"d716b78cff2872dd","toSide":"left"},
+		{"id":"920eb16a697cb718","fromNode":"d402bf4a199ebe65","fromSide":"right","toNode":"3447f105d96fb7b2","toSide":"left"}
+	]
+}

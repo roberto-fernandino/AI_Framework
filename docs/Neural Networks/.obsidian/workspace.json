@@ -1,0 +1,158 @@
+{
+  "main": {
+    "id": "b72434f4483e4883",
+    "type": "split",
+    "children": [
+      {
+        "id": "f678332ca9f60be6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b314b5495ee129c1",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "canvas/Neural Netork.canvas",
+                "viewState": {
+                  "x": 145.69403439209358,
+                  "y": -186.7334020520187,
+                  "zoom": -0.5418937788292706
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e38b913ea459c4b5",
+    "type": "split",
+    "children": [
+      {
+        "id": "799c24959707cd18",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "04a4d55b2971c14b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "365d85ce15718796",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9189e88311c0e9c5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "69d1d69bdefd975f",
+    "type": "split",
+    "children": [
+      {
+        "id": "93244a9cfdfe5ba2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "56df035129778277",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "canvas/Neural Netork.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7c8ae11c7db576a5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "canvas/Neural Netork.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3282a8f62e93a2d9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2b6f9b51bc96099a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "canvas/Neural Netork.canvas"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b314b5495ee129c1",
+  "lastOpenFiles": [
+    "Neural Networks.md",
+    "canvas/Neural Netork.canvas",
+    "canvas/Weights.md"
+  ]
+}
