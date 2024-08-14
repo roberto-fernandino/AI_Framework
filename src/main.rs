@@ -1,4 +1,6 @@
 mod math;
 use crate::math::matrix::Matrix;
 
-fn main() {}
+fn main() {
+    math::matrix_test::test_matrix_operations();
+}
