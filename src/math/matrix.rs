@@ -58,4 +58,19 @@ impl Matrix {
         }
         return result;
     }
+    // A3x2 * B2x3 = A3x3
+    pub fn multiply(&self, other: &Matrix) -> Matrix {
+        if self.cols != other.rows {
+            panic!("Matrice mus be the same size to multiply");
+        }
+        let mut result = Matrix::zeros(self.rows, other.cols);
+        for row in 0..self.rows {
+            for column in 0..other.cols {
+                for i in 0..self.cols {
+                    result.data[row][column] += self.data[row][i] * other.data[i][column];
+                }
+            }
+        }
+        return result;
+    }
 }
