@@ -2,15 +2,15 @@
 	"nodes":[
 		{"id":"2b0b0f5cb9ccb3a0","type":"group","x":-40,"y":-230,"width":200,"height":330,"label":"Hidden Layer"},
 		{"id":"3447f105d96fb7b2","type":"group","x":-240,"y":-170,"width":160,"height":230,"label":"Input layer"},
-		{"id":"ee5d0aabffaaa4fb","x":180,"y":-192,"width":160,"height":220,"type":"group","label":"Output layer"},
+		{"id":"ee5d0aabffaaa4fb","type":"group","x":180,"y":-192,"width":160,"height":220,"label":"Output layer"},
 		{"id":"c695b20f35056870","type":"text","text":"Neuron","x":-220,"y":-150,"width":120,"height":60,"color":"1"},
 		{"id":"edafd4bba56b07ad","type":"text","text":"Neuron","x":-220,"y":-24,"width":120,"height":64,"color":"1"},
 		{"id":"a0724e1962e913d6","type":"text","text":"Neuron","x":0,"y":20,"width":120,"height":60,"color":"1"},
 		{"id":"c47d3a73b40c1f34","type":"text","text":"Neuron","x":0,"y":-210,"width":120,"height":60,"color":"1"},
 		{"id":"d484aa20e85916c5","type":"text","text":"Neuron","x":0,"y":-100,"width":120,"height":60,"color":"1"},
-		{"id":"d716b78cff2872dd","type":"text","text":"Output \nLayer","x":200,"y":-56,"width":120,"height":64,"color":"1"},
-		{"id":"fe162e46a4e3664d","type":"text","text":"Output \nLayer","x":200,"y":-172,"width":120,"height":60,"color":"1"},
-		{"id":"d402bf4a199ebe65","type":"file","file":"canvas/Weights.md","x":-580,"y":-360,"width":240,"height":180}
+		{"id":"fe162e46a4e3664d","type":"text","text":"Neuron\n","x":200,"y":-172,"width":120,"height":60,"color":"1"},
+		{"id":"d402bf4a199ebe65","type":"file","file":"canvas/Weights.md","x":-580,"y":-360,"width":240,"height":180},
+		{"id":"d716b78cff2872dd","type":"text","text":"Neuron","x":200,"y":-56,"width":120,"height":64,"color":"1"}
 	],
 	"edges":[
 		{"id":"b654b5874f11e351","fromNode":"c695b20f35056870","fromSide":"right","toNode":"c47d3a73b40c1f34","toSide":"left"},

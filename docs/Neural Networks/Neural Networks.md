@@ -41,7 +41,7 @@ For every layer in the network we create a ==Matrix== with **rows = layer_size +
 There are a bunch of algos to change the **Weights** each one with a use case. 
 
 ---
-Biases
+*Biases*
 ---
 
 Biases are kinda similar to [Weights](#Weights) but they are parameters added to the weighted sum of the inputs before passing it through the activation function different from weights that are multiplied. They allow the model to shift the activation function, providing additional flexibility. Biases help the model make better predictions when the input data doesn’t necessarily have to pass through the origin (i.e., when all inputs are zero).
