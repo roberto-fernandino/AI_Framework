@@ -35,13 +35,28 @@ Weights in neural networks determine the strength of the connection between neur
 ```rust 
 Vec<Matrix> // [Matrix_a, Matrix_b... Matrix_n]
 ```
-For every layer in the network we create a ==Matrix== with **rows = layer_size + 1** & **cols = layer_size** and we push to the weights Vector.
-	**[[Neural Netork.canvas|See in the canvas]]**
 
-There are a bunch of algos to change the **Weights** each one with a use case. 
+**[[Weights|See more detailed how this Matrix relation works here]]**
+**[[Neural Netork.canvas|See visually in the canvas]]**
+
+There are a bunch of algos to change the **Weights**, each one depending the situation and what u want achieve.
 
 ---
 *Biases*
 ---
 
 Biases are kinda similar to [Weights](#Weights) but they are parameters added to the weighted sum of the inputs before passing it through the activation function different from weights that are multiplied. They allow the model to shift the activation function, providing additional flexibility. Biases help the model make better predictions when the input data doesn’t necessarily have to pass through the origin (i.e., when all inputs are zero).
+
+	We represent weights in the code as:
+
+```rust 
+Vec<Matrix> // [Matrix_a, Matrix_b... Matrix_n]
+```
+
+Every neuron in the Hidden Layer has a Bias value assigned to it.
+
+---
+
+*Data*
+---
+Data represent the 

@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "f678332ca9f60be6",
+        "id": "6ee0c968fc3d522b",
         "type": "tabs",
         "children": [
           {
-            "id": "b314b5495ee129c1",
+            "id": "c90b717608380d16",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "69d1d69bdefd975f",
@@ -147,10 +146,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b314b5495ee129c1",
+  "active": "c90b717608380d16",
   "lastOpenFiles": [
     "canvas/Neural Netork.canvas",
+    "canvas/Weights.md",
     "Neural Networks.md",
-    "canvas/Weights.md"
+    "canvas/Biases.md"
   ]
 }
