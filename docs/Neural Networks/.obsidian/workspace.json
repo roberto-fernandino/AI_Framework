@@ -11,11 +11,14 @@
             "id": "c90b717608380d16",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "Neural Networks.md",
-                "mode": "source",
-                "source": false
+                "file": "canvas/Neural Netork.canvas",
+                "viewState": {
+                  "x": 113.33104390445635,
+                  "y": -143.09865380277182,
+                  "zoom": -0.6000000000000001
+                }
               }
             }
           }
@@ -85,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Neural Networks.md",
+                "file": "canvas/Neural Netork.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Neural Networks.md",
+                "file": "canvas/Neural Netork.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Neural Networks.md"
+                "file": "canvas/Neural Netork.canvas"
               }
             }
           }
@@ -148,8 +151,8 @@
   },
   "active": "c90b717608380d16",
   "lastOpenFiles": [
-    "canvas/Neural Netork.canvas",
     "canvas/Weights.md",
+    "canvas/Neural Netork.canvas",
     "Neural Networks.md",
     "canvas/Biases.md"
   ]
