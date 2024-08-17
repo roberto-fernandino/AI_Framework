@@ -1,45 +1,38 @@
 ![[Pasted image 20240814102848.png]]
-
-_**Layers**_
+***Layers***
 ---
-> Layers in a neural network are fundamental building blocks that help the network learn from data. Each layer consists of a set of neurons (or nodes) that perform computations and pass information to the next layer.
-
-In this program we represent the layers as a Vector of usize integers.
-
+> Layers in a neural network are fundamental building blocks that organize the network. Each layer consists of a set of neurons (or nodes) that perform computations and pass information to the next layer.
+ 
+ #structure In this program we represent the layers as a Struct with two fields, **layers_vec** & **activation_vec**.
 ```rust
-layers: Vec<usize> = vec![2,3,2]
+pub struct Layers<'a> {
+    pub layers_vec: Vec<usize>,
+    pub activation_vec: Vec<Activation<'a>>,
+}
+// Example
+let layers = Layers::new(vec![2, 10, 1], vec![SIGMOID, SIGMOID, SIGMOID]);
 ```
 Visually this is the network generated with this layers.
 ![[Pasted image 20240814103139.png]]
-
 **Input Layer**: 
 	This is the first layer that receives the raw data. It doesn't perform any computation but passes the input features to the next layer.
-	
 **Hidden Layers**: 
 	These layers are situated between the input and output layers and perform computations on the data. Each hidden layer consists of multiple neurons that apply activation functions to the weighted sum of inputs.
-	 
 **Output Layer**:
 	This is the final layer that produces the network’s output. It typically uses a function like [softmax](https://www.google.com/search?client=firefox-b-d&q=fun%C3%A7%C3%A3o+softmax) (for classification tasks) or [linear activation](https://www.google.com/search?q=fun%C3%A7%C3%B5es+de+ativa%C3%A7%C3%A3o+lineares&client=firefox-b-d&sca_esv=ca10b7ff663b7daf&sca_upv=1&sxsrf=ADLYWILYm8UBzGoL2IiElYHKGuNBWKgRyQ%3A1723643681539&ei=Ibe8Zu_MIMPI1sQP7v-Q2Ac&ved=0ahUKEwiv4e2K0fSHAxVDpJUCHe4_BHsQ4dUDCA8&uact=5&oq=fun%C3%A7%C3%B5es+de+ativa%C3%A7%C3%A3o+lineares&gs_lp=Egxnd3Mtd2l6LXNlcnAiIGZ1bsOnw7VlcyBkZSBhdGl2YcOnw6NvIGxpbmVhcmVzMgUQIRigAUiCSlCpEFivSXAFeAGQAQCYAZQCoAH8IqoBBjAuMjYuM7gBA8gBAPgBAZgCIaACtCLCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICChAjGIAEGCcYigXCAgQQIxgnwgIREC4YgAQYsQMY0QMYgwEYxwHCAgsQLhiABBixAxiDAcICCxAAGIAEGLEDGIMBwgIOEAAYgAQYsQMYgwEYigXCAgUQLhiABMICChAAGIAEGEMYigXCAgwQABiABBhDGIoFGArCAhQQLhiABBixAxiDARjHARiOBRivAcICEBAAGIAEGLEDGEMYgwEYigXCAggQABiABBixA8ICBRAAGIAEwgINEAAYgAQYsQMYQxiKBcICCBAAGIAEGMsBwgIIEAAYFhgeGA_CAgYQABgWGB7CAggQABiABBiiBMICBRAhGJ8FmAMAiAYBkAYJkgcGNS4yNS4zoAe8qAE&sclient=gws-wiz-serp) (for regression tasks) to generate predictions.
-```rust
-layers[0] // Input layer
-// Hidden layers are all other layers between these 2
-layers[layers.len() - 1] // Output Layer
-```
 ---
 ***Weights***
 ---
 Weights refer to the parameters within a model that are learned from the training data. These weights adjust how the input data is transformed into output predictions.
 Weights in neural networks determine the strength of the connection between neurons in adjacent layers. During training, these weights are adjusted to minimize the difference between the predicted output and the actual output.
-
-	We represent weights in the code as a:
+	
+#structure We represent weights in the code as
 ```rust 
 Vec<Matrix> // [Matrix_a, Matrix_b... Matrix_n]
 ```
-
 **[[Weights|See more detailed how this Matrix relation works here]]**
 **[[Neural Netork.canvas|See visually in the canvas]]**
-
-There are a bunch of algos to change the **Weights**, each one depending the situation and what u want achieve.
+There are a bunch of algos to change the **Weights**, each one depending the situation and what you want to achieve.
 
 ---
 *Biases*
@@ -47,7 +40,7 @@ There are a bunch of algos to change the **Weights**, each one depending the sit
 
 Biases are kinda similar to [Weights](#Weights) but they are parameters added to the weighted sum of the inputs before passing it through the activation function different from weights that are multiplied. They allow the model to shift the activation function, providing additional flexibility. Biases help the model make better predictions when the input data doesn’t necessarily have to pass through the origin (i.e., when all inputs are zero).
 
-	We represent weights in the code as:
+#structure We represent biases in the code as
 
 ```rust 
 Vec<Matrix> // [Matrix_a, Matrix_b... Matrix_n]
@@ -56,7 +49,41 @@ Vec<Matrix> // [Matrix_a, Matrix_b... Matrix_n]
 Every neuron in the Hidden Layer has a Bias value assigned to it.
 
 ---
-
 *Data*
 ---
-Data represent the 
+Data in this neural network is a Vector we use to store a "Traceback" of inputs and output every neuron in a layer made. 
+Take a look at this example, this is a data Vec in the end of a FeedForward Network (FFN) action, we'll discuss FFN's later, but look:
+Considering this is Networks has 2/3/1 [Layers](#Layers).
+```rust
+data: [
+	Matrix { rows: 2, cols: 1, data: [[1.0], [1.0]] }, 
+	Matrix { rows: 3, cols: 1, data: [[0.9999959003959371], [0.998332704623439], [0.0016032247432144918]] }, 
+	Matrix { rows: 1, cols: 1, data: [[0.020126302745154437]] }
+]
+```
+The first element of this **data** is a Matrix 2x1 previously transposed and represent the input data.
+The second element is the output of the first **Hidden Layer**.
+In case this network had more Layers in the **Hidden Layer** we would specify them here but as i said it is a 3 layer network.
+The last element is the output.
+
+---
+
+***Learning Rate***
+---
+Learning Rate define how fast our model learns.
+We define learning rate as a`f64`.
+We adjust the values to control how "strenghly"" the Network will adjust the weights during the training process. Essentially, it determines the step size at each iteration as the model tries to minimize the loss function.
+A Low **learning Rate** value result in a smaller updates and a more precise, though slower, convergence.
+A High **Learning Rate** value can result in faster convergence bur risks overshooting the optimal weights or causing unstable training.
+
+Choose the right learning rate is crucial for training efficiency and accuracy
+
+---
+
+*Activation Functions*
+---
+In an [artificial neural network](https://en.wikipedia.org/wiki/Artificial_neural_network "Artificial neural network"), an **activation function** is a critical component that determines the output of each node (or neuron) based on the weighted sum of its inputs. These functions introduce non-linearity into the network, enabling it to model complex patterns and relationships in data that a simple linear transformation could not capture. Activation functions are responsible for deciding whether a neuron should be "activated" or not, influencing how information flows through the network and ultimately how it learns to make predictions.
+
+By transforming input signals, activation functions allow neural networks to approximate almost any function, making them powerful tools in fields like image recognition, natural language processing, and decision-making systems.
+
+---

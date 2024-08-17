@@ -4,21 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "6ee0c968fc3d522b",
+        "id": "5691f643bb511b71",
         "type": "tabs",
         "children": [
           {
-            "id": "c90b717608380d16",
+            "id": "ea8d8f7f07b5becd",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "canvas/Neural Netork.canvas",
-                "viewState": {
-                  "x": 113.33104390445635,
-                  "y": -143.09865380277182,
-                  "zoom": -0.6000000000000001
-                }
+                "file": "Neural Networks.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -51,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#Layers",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -88,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "canvas/Neural Netork.canvas",
+                "file": "Neural Networks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "canvas/Neural Netork.canvas",
+                "file": "Neural Networks.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "canvas/Neural Netork.canvas"
+                "file": "Neural Networks.md"
               }
             }
           }
@@ -149,11 +146,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c90b717608380d16",
+  "active": "ea8d8f7f07b5becd",
   "lastOpenFiles": [
-    "canvas/Weights.md",
     "canvas/Neural Netork.canvas",
     "Neural Networks.md",
+    "[.md",
+    "canvas/Weights.md",
+    "Pasted image 20240814102835.png",
+    "Pasted image 20240814102848.png",
     "canvas/Biases.md"
   ]
 }

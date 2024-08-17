@@ -37,7 +37,7 @@ impl Matrix {
     pub fn from(data: Vec<Vec<f64>>) -> Matrix {
         let rows = data.len();
         let cols = data[0].len();
-        let mut matrix = Matrix {
+        let matrix = Matrix {
             rows: rows,
             cols: cols,
             data: data,
@@ -153,7 +153,14 @@ impl Matrix {
                     result.push_str("[");
                 }
                 if column == self.cols - 1 {
-                    result.push_str(&format!("{}]", self.data[row][column]));
+                    if row == self.rows - 1 {
+                        result.push_str(&format!(
+                            "{}] {}x{}",
+                            self.data[row][column], self.rows, self.cols
+                        ));
+                    } else {
+                        result.push_str(&format!("{}]", self.data[row][column]));
+                    }
                 } else {
                     result.push_str(&format!("{} ", self.data[row][column]));
                 }

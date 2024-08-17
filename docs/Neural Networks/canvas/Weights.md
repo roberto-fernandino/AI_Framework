@@ -33,6 +33,7 @@ This would result in a matrix like this:
 | -------- | -------- |
 | **-0.2** | **0.9**  |
 | **0.8**  | **-0.4** |
-Using it on canvas it will look like this ![[Neural Netork.canvas]]
+See the applied values Canvas bellow ![[Neural Netork.canvas]]
+
 
 After that we'll 
