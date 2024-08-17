@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "92017d3d27bac82d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Neural Networks/Neural Networks.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -161,13 +173,16 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "5966a7fa8e85334b",
+  "active": "92017d3d27bac82d",
   "lastOpenFiles": [
-    "Machine Learning/Machine Learning.md",
-    "Neural Networks/Neural Networks.md",
-    "Machine Learning",
     "Neural Networks/canvas/Neural Netork.canvas",
     "Neural Networks/canvas/Weights.md",
+    "Neural Networks/Neural Networks.md",
+    "Pasted image 20240817112607.png",
+    "Pasted image 20240817112542.png",
+    "Pasted image 20240817111710.png",
+    "Machine Learning/Machine Learning.md",
+    "Machine Learning",
     "canvas/Weights.md",
     "canvas/Neural Netork.canvas",
     "Neural Networks/canvas",

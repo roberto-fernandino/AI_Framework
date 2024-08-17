@@ -75,7 +75,53 @@ We define learning rate as a`f64`.
 We adjust the values to control how "strenghly"" the Network will adjust the weights during the training process. Essentially, it determines the step size at each iteration as the model tries to minimize the loss function.
 A Low **learning Rate** value result in a smaller updates and a more precise, though slower, convergence.
 A High **Learning Rate** value can result in faster convergence bur risks overshooting the optimal weights or causing unstable training.
+##### Example
+Take a look at this example
+This is a simple FFN network trained to learn [XOR](https://pt.wikipedia.org/wiki/Ou_exclusivo)
+Consider this as input 
+```rust
+    let inputs = vec![
+        vec![0.0, 0.0],
+        vec![0.0, 1.0],
+        vec![1.0, 0.0],
+        vec![1.0, 1.0],
+    ];
+```
+This is the output of the Network after training with learning rate **0.5**, considered a medium/high **Learning Rate**.
+![[Pasted image 20240817111710.png]]
 
+> [!NOTE]
+>  This test was made using ReLu, using others activation functions may vary the max **Learning Rate** values we can use.
+
+The [Weights](#weights) were changed to much and the solution was not properly found.
+With very large updates, the network can deviate greatly from the optimal values, resulting in outputs that can be close to zero due to large adjustments in weights that do not converge to useful values.
+<details>
+<summary>Reasons for Learning Rate Issues</summary>
+
+1. **Updates of Very Large Weights**
+
+    **Effect:** A high learning rate makes the weight updates very large. This can cause the network to "sack" from one side to the other instead of slowly adjusting and finding the optimal solution.
+    **Consequence:** With very large updates, the network can deviate too much from the optimal values, resulting in outputs that can be close to zero due to large adjustments in weights that do not converge to useful values.
+
+2. **The Problem of Divergence**
+
+    **Effect:** If the learning rate is too large, the network can become unstable, leading to a divergence of the weight values. Instead of minimizing the error, the network can increase the error continuously.
+    **Consequence:** This can cause the network to produce outputs that look "fixed" and do not change, or that do not fit well to the desired pattern.
+
+3. **Explosion of Gradients**
+
+    **Effect:** In deep networks, a high learning rate can exacerbate the problem of gradient explosion, where the gradients calculated during training become very large.
+    **Consequence:** This can cause an excessive update of weights, resulting in activation values that are too large or too small, and can cause the network to produce inadequate outputs or even NaN.
+
+4. **Adjustments Not Precise**
+
+    **Effect:** The network may not have enough time to adjust the weights correctly when the learning rate is too high. Weights may be adjusted away from the correct solution before the network has a chance to stabilize.
+    **Consequence:** This can result in a network that does not learn the desired pattern and continues to produce constant outputs as zero.
+
+</details>
+Now adjusting the learning rate to **0.01** this is the output we get
+![[Pasted image 20240817112607.png]]
+See how much closer to the expected output we are now?
 Choose the right learning rate is crucial for training efficiency and accuracy
 
 ---
@@ -87,3 +133,5 @@ In an [artificial neural network](https://en.wikipedia.org/wiki/Artificial_neura
 By transforming input signals, activation functions allow neural networks to approximate almost any function, making them powerful tools in fields like image recognition, natural language processing, and decision-making systems.
 
 ---
+
+
