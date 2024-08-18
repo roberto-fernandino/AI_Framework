@@ -85,7 +85,10 @@ impl Matrix {
 
     pub fn add(&self, other: &Matrix) -> Matrix {
         if self.rows != other.rows || self.cols != other.cols {
-            panic!("Matrices must be the same size to add");
+            panic!(
+                "Matrices must be the same size to add {}x{} + {}x{}",
+                self.rows, self.cols, other.rows, other.cols
+            );
         }
         let mut result = Matrix::zeros(self.rows, self.cols);
         for row in 0..self.rows {
@@ -165,7 +168,6 @@ impl Matrix {
                     result.push_str(&format!("{} ", self.data[row][column]));
                 }
             }
-            result.push_str("\n");
         }
         return result;
     }
