@@ -8,7 +8,7 @@ pub struct Layers<'a> {
 }
 
 impl Layers<'_> {
-    pub fn new(layers_vec: Vec<usize>, activation: Vec<Activation<'_>>) -> Layers<'_> {
+    pub fn new(layers_vec: Vec<usize>, activation: Vec<Activation>) -> Layers {
         Layers {
             layers_vec: layers_vec,
             activation_vec: activation,
@@ -21,10 +21,11 @@ pub struct Network<'a> {
     pub biases: Vec<Matrix>,
     pub data: Vec<Matrix>,
     pub learning_rate: f64,
+    pub acurracy: f64,
 }
 
 impl Network<'_> {
-    pub fn new<'a>(layers: Layers<'a>, learning_rate: f64) -> Network<'a> {
+    pub fn new(layers: Layers, learning_rate: f64) -> Network {
         // Start the weights and biases
         let mut weights = Vec::new();
         let mut biases = Vec::new();
@@ -48,6 +49,7 @@ impl Network<'_> {
             biases: biases,
             data: Vec::new(),
             learning_rate: learning_rate,
+            acurracy: 0.0,
         }
     }
 
@@ -74,10 +76,11 @@ impl Network<'_> {
         if targets.len() != self.layers.layers_vec[self.layers.layers_vec.len() - 1] {
             panic!("Targets must have the same size as the last layer");
         }
-        let parsed = Matrix::from(vec![outputs]); // Parse outputs to a matrix
-        let mut errors = Matrix::from(vec![targets]).subtract(&parsed); // Subtract targets from outputs and save to errors
+        let outputs = Matrix::from(vec![outputs]).transpose();
+        let targets = Matrix::from(vec![targets]).transpose();
+        let mut errors = targets.subtract(&outputs);
         let mut gradients: Matrix =
-            parsed.map(&self.layers.activation_vec.last().unwrap().derivative); // Calculate gradients
+            outputs.map(&self.layers.activation_vec.last().unwrap().derivative); // Calculate gradients
         for i in (0..self.layers.layers_vec.len() - 1).rev() {
             gradients = gradients
                 .dot_multiply(&errors)
@@ -90,19 +93,66 @@ impl Network<'_> {
     }
 
     pub fn train(&mut self, inputs: Vec<Vec<f64>>, targets: Vec<Vec<f64>>, epochs: u64) {
-        // Train the network
-        // epochs is the number of times the network will be trained
-        for run in 1..=epochs {
-            // Loop through the epochs
-            if epochs < 100 || run % (epochs / 10) == 0 {
-                // Print the epoch number every 1% of the epochs
-                println!("run {} of {}", run, epochs);
+        let mut total_loss = 0.0;
+        let mut correct_predictions = 0;
+        let mut total_predictions = 0;
+
+        for epoch in 1..=epochs {
+            for (input, target) in inputs.iter().zip(targets.iter()) {
+                let outputs = self.feed_forward(input.clone());
+
+                let loss = outputs
+                    .iter()
+                    .zip(target)
+                    .map(|(o, t)| (o - t).powi(2))
+                    .sum::<f64>()
+                    / outputs.len() as f64;
+
+                total_loss += loss;
+                total_predictions += 1;
+
+                // if ratio is in 90% to 100% of the target
+                if outputs.iter().zip(target).all(|(o, t)| {
+                    if t.abs() > 1e-6 {
+                        // Evita divisão por zero ou muito próxima de zero
+                        let ratio = o.abs() / t.abs();
+                        ratio >= 0.9 && ratio <= 1.0
+                    } else {
+                        o.abs() < 1e-6 // Considera correto se ambos forem próximos de zero
+                    }
+                }) {
+                    correct_predictions += 1;
+                }
+                self.back_propagation(outputs, target.clone());
             }
-            for i in 0..inputs.len() {
-                // for each input
-                let outputs = self.feed_forward(inputs[i].clone()); // feed forward
-                self.back_propagation(outputs, targets[i].clone()); // backpropagation
+
+            let avg_loss = total_loss / total_predictions as f64;
+            self.acurracy = correct_predictions as f64 / total_predictions as f64;
+
+            // every 10%
+            // prints the loss and accuracy every 10% of the epochs
+
+            let ten_percent = (epochs as f64 * 0.1) as u64;
+            if epoch % ten_percent as u64 == 0 {
+                println!(
+                    "Epoch: {} Loss: {} Accuracy: {}",
+                    epoch, avg_loss, self.acurracy
+                );
             }
         }
+    }
+
+    pub fn representation(&self) {
+        for layer in 0..self.layers.layers_vec.len() {
+            for _neuron in 0..self.layers.layers_vec[layer] {
+                if layer == 0 {
+                    print!("[input] ");
+                } else {
+                    print!("[{}] ", self.layers.activation_vec[layer].name);
+                }
+            }
+            println!(); // Move to the next line for the next layer
+        }
+        println!();
     }
 }

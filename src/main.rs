@@ -1,6 +1,6 @@
-mod lib;
-use lib::{activation::SIGMOID, network::Network};
-use std::vec;
+mod utils;
+use utils::activation::{RELU, SIGMOID};
+use utils::network::{Layers, Network};
 
 fn main() {
     let inputs = vec![
@@ -10,18 +10,19 @@ fn main() {
         vec![1.0, 1.0],
     ];
     let targets = vec![vec![0.0], vec![1.0], vec![1.0], vec![0.0]];
+    let layers = Layers::new(vec![2, 16, 16, 1], vec![RELU, RELU, RELU, SIGMOID]);
+    let mut network = Network::new(layers, 0.01);
+    network.representation();
 
-    let mut network = Network::new(vec![2, 3, 1], SIGMOID, 0.5);
+    println!("{:?}", network.feed_forward(inputs[0].clone()));
+    println!("{:?}", network.feed_forward(inputs[1].clone()));
+    println!("{:?}", network.feed_forward(inputs[2].clone()));
+    println!("{:?}", network.feed_forward(inputs[3].clone()));
 
-    println!("{:?}", network.feed_forward(vec![0.0, 0.0]));
-    println!("{:?}", network.feed_forward(vec![0.0, 1.0]));
-    println!("{:?}", network.feed_forward(vec![1.0, 0.0]));
-    println!("{:?}", network.feed_forward(vec![1.0, 1.0]));
+    network.train(inputs.clone(), targets.clone(), 50000);
 
-    network.train(inputs, targets, 10000);
-
-    println!("{:?}", network.feed_forward(vec![0.0, 0.0]));
-    println!("{:?}", network.feed_forward(vec![0.0, 1.0]));
-    println!("{:?}", network.feed_forward(vec![1.0, 0.0]));
-    println!("{:?}", network.feed_forward(vec![1.0, 1.0]));
+    println!("{:?}", network.feed_forward(inputs[0].clone()));
+    println!("{:?}", network.feed_forward(inputs[1].clone()));
+    println!("{:?}", network.feed_forward(inputs[2].clone()));
+    println!("{:?}", network.feed_forward(inputs[3].clone()));
 }

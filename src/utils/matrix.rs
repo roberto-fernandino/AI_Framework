@@ -45,11 +45,14 @@ impl Matrix {
         matrix
     }
 
-    pub fn map(&self, f: &dyn Fn(f64) -> f64) -> Matrix {
+    pub fn map<F>(&self, func: F) -> Matrix
+    where
+        F: Fn(f64) -> f64,
+    {
         let mut result = Matrix::zeros(self.rows, self.cols);
         for row in 0..self.rows {
             for column in 0..self.cols {
-                result.data[row][column] = f(self.data[row][column]);
+                result.data[row][column] = func(self.data[row][column]);
             }
         }
         result
@@ -117,7 +120,7 @@ impl Matrix {
             panic!(
                 "Matrice mus be the same size to multiply A_cols_{:?} * B_rows_{:?}",
                 self.cols, other.rows
-            );
+            ); // A¹² * B²³ = C¹³
         }
         let mut result = Matrix::zeros(self.rows, other.cols);
         for row in 0..self.rows {
@@ -127,7 +130,7 @@ impl Matrix {
                 // columns of B
                 for i in 0..self.cols {
                     // columns of A
-                    // A[row][i] * B[i][column] where X[row][column]
+                    // A[row][i] * B[i][column] = C[row][column]
                     sum += self.data[row][i] * other.data[i][column];
                 }
                 result.data[row][column] = sum;
