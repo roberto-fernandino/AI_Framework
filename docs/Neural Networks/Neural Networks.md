@@ -146,14 +146,93 @@ By transforming input signals, activation functions allow neural networks to app
 		2. [[#Hidden Layers]]
 		3. [[#Output Layer]]
 	2. [[#Activation Functions]]: Nodes in the hidden and output layers use activation functions to introduce non-linearity into the network. Common activation functions include ReLU, Sigmoid, and Tanh.
-	3. [[]]
+	3. [[#Back Propagation]]: We almost always use BackPropagation algorithms to train a FFN.
+		
 
 ---
-**Training Algorithms**
+**Algorithms**
+---
+### FeedForward
+---
+![[Pasted image 20240819090903.png]]
+It's a method of a Network Struct.
+#### **Input**
+We receive a Vector of 64-bit floating numbers as input data and returns a Vector of 64-bit floating numbers.
+The inputs Vector represents the input layer.
+Every f64 is "inputted into the input layer" but more precisely they're the input layer because the input layer doesn't do anything with the data, they don't have any [[#Activation Functions]] , [[#Weights]] and [[#Biases]].
+
+#### **Algorithm**
+First
+1. We check the length of the `inputs` Vector to check if they're the same size as the input layer.
+2. Create a matrix from the `inputs` and transpose it.
+	Example:
+```rust 
+     let inputs = [1.0, 0.0];
+     asserteq!(self.layers.layers_vec[0], inputs.len() - 1); // True
+```
+This inputs  will result in a matrix like this after the transpose
+| **1.0**  | `Input Neuron 1`
+| **0.0** | `Input Neuron 2`
+
+3. Create a data Vector which will store all the data the Network create and push       this matrix, we'll give the name `current` because this Matrix will further change to represent the output of every layer.
+	![[Pasted image 20240819093339.png]]
+	 Data will look like this atm
+	 ```rust
+	 [Matrix { rows: 1, cols: 2, data: [1.0, 0.0] }]
+	 ```
+4. Now we iterate through the layers.
+     For every layer in the network we'll create a new current that will be the result a matrix with every element being the result of 
+     **[[#Activation Functions|act_func_of_that_layer]]([[#Weights|weights_of_that_layer]] * current_matrix + [[#Biases|bias_of_that_layer]])**
+     This current matrix represents the IO of a layer.
+     Last `current` = Input of actual layer.
+	 
+5. Return the **last** current matrix that is output of [[#Output Layer]].
+
+#### **Output**
+The output is the "Network Response" itself, it's the data the network changed in the [[#Hidden Layers]] and [[#Output Layer]]. 
+
 ---
 
 ### Back Propagation
-
-
-
+---
+The `back_propagation` function adjusts the weights and biases of the network by calculating and propagating the error backwards through the layers of the neural network.
+1. **Target Size Verification**: We first check if the size of the `targets` vector matches the size of the output layer (i.e., the number of neurons in the output layer). If not, the function panics, as the targets must correspond to the expected output size.
+```rust 
+if targets.len()!= self.layers.layers_vec[self.layers.layers_vec.len()-1] { 
+panic!("Targets must have the same size as the last layer"); 
+}
+```
+2. **Convert Outputs and Targets to Matrices**: The `outputs` and `targets` vectors are converted into matrices and transposed. This allows us to perform matrix operations during the backpropagation process. 
+```rust 
+let outputs = Matrix::from(vec![outputs]).transpose();
+let targets = Matrix::from(vec![targets]).transpose();
+```
+3. **Initial Error Calculation**: The initial `errors` matrix is computed by subtracting the `outputs` from the `targets`. This represents the error between the network's output and the expected output (targets).
+```rust
+let mut errors = targets.subtract(&outputs);
+```
+4. **Initial Gradient Calculation**: The gradient is calculated using the derivative of the activation function of the output layer, applied to the `outputs`. This gradient will be used to adjust the weights and biases in subsequent layers.
+```rust
+let mut gradients: Matrix = outputs.map(&self.layers.activation_vec.last().unwrap().derivative);
+```
+5. **Iterate Through Layers in Reverse**: We iterate through the layers in reverse order (from output layer to input layer) to propagate the error backward:
+	1. **Gradient Adjustment**: For each layer, the gradients are adjusted by applying the element-wise product of the gradients and the `errors`, scaled by the learning rate.
+		 ```rust
+		 gradients = gradients
+	    .dot_multiply(&errors)
+	    .map(&|x| x * self.learning_rate);
+		 ```
+	2. **Update Weights and Biases**: The weights of the current layer are updated by adding the product of the `gradients` and the transpose of the data (inputs to that layer). The biases are updated by adding the `gradients`.
+	  ```rust
+	  self.weights[i] = self.weights[i].add(&gradients.multiply(&self.data[i].transpose()));  self.biases[i] = self.biases[i].add(&gradients);
+	  ```
+	3. **Calculate Errors for Previous Layer**: The `errors` for the previous layer are calculated by multiplying the transposed weights of the current layer by the current `errors`. This propagates the error back to the previous layer.
+	```rust
+	errors = self.weights[i].transpose().multiply(&errors);
+	```
+	4. **Calculate Gradients for Previous Layer**: The gradients for the previous layer are recalculated by applying the derivative of the activation function of that layer to the data (inputs) of the layer.
+	```rust
+		gradients = self.data[i].map(self.layers.activation_vec[i].derivative);
+	```
+	5. **Completion**: After iterating through all the layers, the `weights` and `biases` of the network have been updated. This process of adjusting weights and biases minimizes the error and allows the network to learn from the data.
 ---

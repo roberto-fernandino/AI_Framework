@@ -8,57 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "519f991bf6298dbc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Neural Networks/Neural Networks.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5966a7fa8e85334b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Neural Networks/Neural Networks.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "92017d3d27bac82d",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Neural Networks/canvas/Neural Netork.canvas",
-                "viewState": {
-                  "x": 160.70675564632498,
-                  "y": -192.8562961321244,
-                  "zoom": -0.44876638050235673
-                }
-              }
-            }
-          },
-          {
-            "id": "2b101d790065859f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Neural Networks/Neural Networks.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "d3f8f3731892b4fe",
             "type": "leaf",
             "state": {
@@ -70,8 +19,7 @@
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -121,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 246.5
+    "width": 246.5,
+    "collapsed": true
   },
   "right": {
     "id": "3cbcf9b03b047dd7",
@@ -214,6 +163,10 @@
   },
   "active": "d3f8f3731892b4fe",
   "lastOpenFiles": [
+    "Pasted image 20240819093339.png",
+    "Pasted image 20240819092104.png",
+    "Pasted image 20240819092100.png",
+    "Pasted image 20240819090903.png",
     "Neural Networks/canvas/Weights.md",
     "Neural Networks/canvas/Neural Netork.canvas",
     "Neural Networks/Neural Networks.md",
