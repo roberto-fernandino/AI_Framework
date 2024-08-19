@@ -236,3 +236,33 @@ let mut gradients: Matrix = outputs.map(&self.layers.activation_vec.last().unwra
 	```
 	5. **Completion**: After iterating through all the layers, the `weights` and `biases` of the network have been updated. This process of adjusting weights and biases minimizes the error and allows the network to learn from the data.
 ---
+
+### Train
+---
+
+The training process involves running the network multiple times through a loop, where it repeatedly adjusts its weights and biases to minimize the error between its predicted output and the actual target values. 
+
+The steps of the training process are:
+
+1. **Set Number of Epochs**:  
+   The training loop runs for a predetermined number of iterations, often referred to as **epochs**. Each epoch involves feeding the network the entire training dataset once. The number of epochs is a hyperparameter that you set depending on how long you want the network to train.
+
+2. **Feedforward Process**:  
+   During each epoch, the network processes the input data by passing it through all the layers using the **Feedforward** function. This step involves calculating the weighted sum of inputs and applying activation functions to generate predictions at the output layer.
+
+3. **Error Calculation**:  
+   The network compares its predictions (output) with the actual target values and calculates the error. This error quantifies how far the network's output is from the correct output and is used to adjust the network.
+
+4. **Backpropagation Function**:  
+   After calculating the error, the **Backpropagation** function is called to update the network's weights and biases. This is done by propagating the error backward through the network and making small adjustments to the weights and biases in each layer to reduce the error. The size of these adjustments is influenced by the learning rate, a hyperparameter that controls how fast or slow the network learns.
+
+5. **Repeat for X Epochs**:  
+   The feedforward and backpropagation steps are repeated for a set number of epochs (X times). With each iteration, the network should ideally improve its ability to make accurate predictions by minimizing the error.
+
+	1. **Monitor Progress**:  
+   During training, you might monitor metrics like **loss** (the total error in the network) or **accuracy** to evaluate how well the network is performing. If the error decreases significantly or the accuracy improves, it indicates that the network is learning from the data.
+
+The goal of training is to optimize the model's weights and biases so that, after several epochs, the network becomes adept at making accurate predictions when presented with new data.
+
+
+---

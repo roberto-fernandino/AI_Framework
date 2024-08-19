@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 246.5,
-    "collapsed": true
+    "width": 246.5
   },
   "right": {
     "id": "3cbcf9b03b047dd7",
@@ -86,7 +85,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Neural Networks/Neural Networks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +101,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Neural Networks/Neural Networks.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Neural Networks/Neural Networks.md"
+                "file": "Untitled.md"
               }
             }
           },
@@ -161,15 +158,16 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "d3f8f3731892b4fe",
+  "active": "ae86ed44e7cfc67b",
   "lastOpenFiles": [
+    "Neural Networks/Neural Networks.md",
+    "Untitled.md",
     "Pasted image 20240819093339.png",
     "Pasted image 20240819092104.png",
     "Pasted image 20240819092100.png",
     "Pasted image 20240819090903.png",
     "Neural Networks/canvas/Weights.md",
     "Neural Networks/canvas/Neural Netork.canvas",
-    "Neural Networks/Neural Networks.md",
     "Machine Learning/Machine Learning.md",
     "**.md",
     "Pasted image 20240817112607.png",
