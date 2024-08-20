@@ -1,4 +1,6 @@
 use crate::utils::network::{Layers, Network};
+use rustyline::history::MemHistory;
+use rustyline::{Config, Editor};
 use std::{
     any::{type_name, Any},
     io::{self, Write},
@@ -131,4 +133,28 @@ pub fn create_model() {
     }
     let layers = Layers::new(neurons_per_layer, activations);
     let network = Network::new(layers, learning_rate);
+    println!("Model created");
+    network.representation();
+    network.ask_save(name);
+}
+
+pub fn mainloop() {
+    logo();
+
+    let mut rl = Editor::<(), MemHistory>::with_history(Config::default(), MemHistory::new())
+        .expect("Error initializing readline");
+    loop {
+        let readline = rl.readline("command> ");
+        match readline {
+            Ok(line) => {
+                rl.add_history_entry(line.as_str())
+                    .expect("Failed to add history entry");
+                input_parser(line);
+            }
+            Err(_) => {
+                println!("Exiting...");
+                break;
+            }
+        }
+    }
 }
