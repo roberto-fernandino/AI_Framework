@@ -73,7 +73,7 @@ The last element is the output.
 
 ---
 
-***Learning Rate***
+***Learning** Rate***
 ---
 Learning Rate define how fast our model learns.
 We define learning rate as a`f64`.

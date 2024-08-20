@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "section:(learning rate)",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 246.5,
-    "collapsed": true
+    "width": 246.5
   },
   "right": {
     "id": "3cbcf9b03b047dd7",
@@ -163,20 +162,23 @@
   },
   "active": "d3f8f3731892b4fe",
   "lastOpenFiles": [
-    "Neural Networks/canvas/Neural Netork.canvas",
+    "Neural Networks/images/Pasted image 20240819093339.png",
     "Neural Networks/Neural Networks.md",
+    "Neural Networks/images",
+    "Neural Networks/canvas/Weights.md",
+    "Neural Networks/canvas/Neural Netork.canvas",
+    "Neural Networks/images/Pasted image 20240817111710.png",
+    "Neural Networks/images/Pasted image 20240814102835.png",
+    "Untitled.canvas",
+    "Neural Networks/images/Pasted image 20240819092104.png",
+    "Neural Networks/images/Pasted image 20240819092100.png",
+    "Neural Networks/images/Pasted image 20240819090903.png",
+    "Neural Networks/images/Pasted image 20240817112607.png",
+    "Neural Networks/images/Pasted image 20240817112542.png",
+    "Machine Learning/Machine Learning.md",
     "Neural Networks/canvas/Untitled.md",
     "Untitled.md",
-    "Pasted image 20240819093339.png",
-    "Pasted image 20240819092104.png",
-    "Pasted image 20240819092100.png",
-    "Pasted image 20240819090903.png",
-    "Neural Networks/canvas/Weights.md",
-    "Machine Learning/Machine Learning.md",
     "**.md",
-    "Pasted image 20240817112607.png",
-    "Pasted image 20240817112542.png",
-    "Pasted image 20240817111710.png",
     "Machine Learning",
     "canvas/Weights.md",
     "canvas/Neural Netork.canvas",
