@@ -1,10 +1,7 @@
 use crate::utils::network::{Layers, Network};
 use rustyline::history::MemHistory;
 use rustyline::{Config, Editor};
-use std::{
-    any::{type_name, Any},
-    io::{self, Write},
-};
+use std::io::{self, Write};
 
 use crate::utils::activation::{self, INPUT};
 
