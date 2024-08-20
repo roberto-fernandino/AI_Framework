@@ -1,7 +1,21 @@
-use crate::utils::activation::Activation;
+use crate::utils::activation::{Activation, LEAKY_RELU, RELU, SIGMOID};
 use crate::utils::matrix::Matrix;
-use std::vec;
+use serde::{Deserialize, Serialize};
+use serde_json::{from_str, json};
+use std::{
+    fs::File,
+    io::{self, Read, Write},
+    vec,
+};
 
+#[derive(Serialize, Deserialize)]
+struct SaveData {
+    biases: Vec<Vec<Vec<f64>>>,
+    layers: Vec<usize>,
+    layers_activation: Vec<String>,
+    name: String,
+    weights: Vec<Vec<Vec<f64>>>,
+}
 pub struct Layers<'a> {
     pub layers_vec: Vec<usize>,
     pub activation_vec: Vec<Activation<'a>>,
@@ -143,6 +157,7 @@ impl Network<'_> {
     }
 
     pub fn representation(&self) {
+        println!("learning rate {}", self.learning_rate);
         for layer in 0..self.layers.layers_vec.len() {
             for _neuron in 0..self.layers.layers_vec[layer] {
                 if layer == 0 {
@@ -154,5 +169,85 @@ impl Network<'_> {
             println!(); // Move to the next line for the next layer
         }
         println!();
+    }
+    pub fn ask_save(&self, name: String) {
+        println!("Want to save the model? (y/n)");
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        if input.trim() == "y" {
+            self.save_model(format!("models/{}.json", name.trim()), name.trim());
+            println!("Model saved");
+        } else {
+            println!("Model not saved");
+        }
+    }
+    pub fn save_model(&self, file: String, name: &str) {
+        let mut file = File::create(file).expect("Unable to touch save file");
+
+        file.write_all(
+			json!({
+                "name": name,
+				"weights": self.weights.clone().into_iter().map(|matrix| matrix.data).collect::<Vec<Vec<Vec<f64>>>>(),
+				"biases": self.biases.clone().into_iter().map(|matrix| matrix.data).collect::<Vec<Vec<Vec<f64>>>>(),
+                "layers": self.layers.layers_vec.clone(),
+                "layers_activation": self.layers.activation_vec.clone().into_iter().map(|activation| activation.name.to_string()).collect::<Vec<String>>(),
+			}).to_string().as_bytes(),
+		).expect("Unable to write to save file");
+    }
+
+    pub fn load_model<'a>(path: String) -> Result<Network<'a>, String> {
+        let mut file = File::open(path).expect("Unable to open model file");
+        let mut buffer = String::new();
+        let mut weights: Vec<Vec<Vec<f64>>> = vec![];
+        let mut biases: Vec<Vec<Vec<f64>>> = vec![];
+        let mut layers: Vec<usize> = vec![];
+
+        file.read_to_string(&mut buffer)
+            .expect("Unable to read model file");
+
+        let data: SaveData = from_str(&buffer).expect("Unable to parse model file");
+
+        data.weights.iter().for_each(|weight| {
+            weights.push(weight.clone());
+        });
+        data.biases.iter().for_each(|bias| {
+            biases.push(bias.clone());
+        });
+        data.layers.iter().for_each(|layer| {
+            layers.push(*layer);
+        });
+        let weights_matrix: Vec<Matrix> = data
+            .weights
+            .iter()
+            .map(|weights| Matrix::from(weights.clone()))
+            .collect();
+        let biases_matrix: Vec<Matrix> = data
+            .biases
+            .iter()
+            .map(|bias| Matrix::from(bias.clone()))
+            .collect();
+
+        let activation_vec: Vec<Activation> = data
+            .layers_activation
+            .iter()
+            .map(|activation| match activation.as_str() {
+                "ReLU" => Ok(RELU),
+                "Sigmoid" => Ok(SIGMOID),
+                "Leaky ReLU" => Ok(LEAKY_RELU),
+                _ => return Err(format!("Invalid activation function: {}", activation)),
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+
+        Ok(Network {
+            layers: Layers {
+                layers_vec: layers,
+                activation_vec: activation_vec,
+            },
+            weights: weights_matrix,
+            biases: biases_matrix,
+            data: vec![],
+            learning_rate: 0.01,
+            acurracy: 0.0,
+        })
     }
 }
