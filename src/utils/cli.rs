@@ -238,7 +238,6 @@ pub fn clear() {
 }
 
 pub fn list_models() {
-    println!();
     for entry in fs::read_dir("models").unwrap() {
         let entry = entry.unwrap();
         if entry.file_name().to_str().unwrap().contains(".json") {
@@ -253,4 +252,5 @@ pub fn list_models() {
             );
         }
     }
+    println!();
 }
