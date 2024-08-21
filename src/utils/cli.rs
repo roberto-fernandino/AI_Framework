@@ -3,10 +3,15 @@ use crate::utils::network::{Layers, Network};
 use rustyline::error::ReadlineError;
 use rustyline::history::MemHistory;
 use rustyline::{Config, Editor};
+use std::fs;
 use std::io::{self, Write};
-use std::{fs, net};
 
-pub fn input_parser(input: String, network: &mut Option<Network>) {
+pub struct LoadedModel {
+    pub name: String,
+    pub network: Network<'static>,
+}
+
+pub fn input_parser(input: String, network: &mut Option<LoadedModel>) {
     match input.as_str() {
         "create model" => create_network(),
         "exit" => {
@@ -24,11 +29,13 @@ pub fn input_parser(input: String, network: &mut Option<Network>) {
         }
         "represent model" => {
             if let Some(ref network) = network {
-                network.representation();
+                println!();
+                network.network.representation();
             } else {
                 println!("No model selected");
             }
         }
+        "list models" => list_models(),
         _ => println!("Invalid command"),
     }
 }
@@ -60,6 +67,9 @@ pub fn help() {
     println!("clear - clears the screen");
     println!("exit - Exits the program");
     println!("help - shows this help");
+    println!("represent model - Represents the model");
+    println!("represent model - Represents the model");
+    println!("list models - Lists all models");
     println!();
 }
 
@@ -157,7 +167,7 @@ pub fn create_network() {
     network.ask_save(name);
 }
 
-pub fn load_network() -> Option<Network<'static>> {
+pub fn load_network() -> Option<LoadedModel> {
     print!("Enter the model name: ");
     io::stdout().flush().unwrap();
 
@@ -178,7 +188,11 @@ pub fn load_network() -> Option<Network<'static>> {
             let network = network.unwrap();
             println!("Model loaded");
             network.representation();
-            return Some(network);
+            let loaded_model = LoadedModel {
+                name: name.trim().to_string(),
+                network: network,
+            };
+            return Some(loaded_model);
         }
     }
     println!("Model not found");
@@ -187,7 +201,7 @@ pub fn load_network() -> Option<Network<'static>> {
 
 pub fn mainloop() {
     logo();
-    let mut selected_network: Option<Network> = None;
+    let mut selected_network: Option<LoadedModel> = None;
     let mut rl = Editor::<(), MemHistory>::with_history(Config::default(), MemHistory::new())
         .expect("Error initializing readline");
     loop {
@@ -195,7 +209,11 @@ pub fn mainloop() {
         if selected_network.is_none() {
             readline = rl.readline("command> ");
         } else {
-            readline = rl.readline("model selected\ncommand> ");
+            let prompt = format!(
+                "{} selected\ncommand> ",
+                selected_network.as_ref().unwrap().name.as_str(),
+            );
+            readline = rl.readline(&prompt.as_str());
         }
         match readline {
             Ok(line) => {
@@ -218,4 +236,22 @@ pub fn clear() {
     println!();
     print!("comamand>");
     io::stdout().flush().unwrap();
+}
+
+pub fn list_models() {
+    println!();
+    for entry in fs::read_dir("models").unwrap() {
+        let entry = entry.unwrap();
+        if entry.file_name().to_str().unwrap().contains(".json") {
+            println!(
+                "{}",
+                entry
+                    .file_name()
+                    .to_str()
+                    .unwrap()
+                    .split(".")
+                    .collect::<Vec<&str>>()[0]
+            );
+        }
+    }
 }
