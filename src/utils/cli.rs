@@ -68,7 +68,6 @@ pub fn help() {
     println!("exit - Exits the program");
     println!("help - shows this help");
     println!("represent model - Represents the model");
-    println!("represent model - Represents the model");
     println!("list models - Lists all models");
     println!();
 }
