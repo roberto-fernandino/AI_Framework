@@ -1,5 +1,5 @@
 ## Slides Para o Pitch de investimento
-https://tome.app/market-agi/fundraising-pitch-copy-cm02n9yac0appzgmqooq114dxfea
+https://tome.app/market-agi/fundraising-pitch-copy-cm02n9yac0appzgmqooq114dx
 
 ## Links de fontes de notícia/informações
 https://twitter.com/Ape_31

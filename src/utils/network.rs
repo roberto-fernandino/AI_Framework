@@ -1,4 +1,4 @@
-use crate::utils::activation::{Activation, LEAKY_RELU, RELU, SIGMOID};
+use crate::utils::activation::{Activation, LEAKY_RELU, RELU, SIGMOID, INPUT};
 use crate::utils::matrix::Matrix;
 use serde::{Deserialize, Serialize};
 use serde_json::{from_str, json};
@@ -234,6 +234,7 @@ impl Network<'_> {
                 "ReLU" => Ok(RELU),
                 "Sigmoid" => Ok(SIGMOID),
                 "Leaky ReLU" => Ok(LEAKY_RELU),
+                "Input" => Ok(INPUT),
                 _ => return Err(format!("Invalid activation function: {}", activation)),
             })
             .collect::<Result<Vec<_>, _>>()?;

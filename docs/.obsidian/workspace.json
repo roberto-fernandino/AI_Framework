@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Neural Networks/Neural Networks.md",
+                "file": "Links.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Neural Networks/Neural Networks.md",
+                "file": "Links.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Neural Networks/Neural Networks.md",
+                "file": "Links.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Neural Networks/Neural Networks.md"
+                "file": "Links.md"
               }
             }
           },
@@ -162,8 +162,9 @@
   },
   "active": "d3f8f3731892b4fe",
   "lastOpenFiles": [
-    "Neural Networks/images/Pasted image 20240819093339.png",
     "Neural Networks/Neural Networks.md",
+    "Links.md",
+    "Neural Networks/images/Pasted image 20240819093339.png",
     "Neural Networks/images",
     "Neural Networks/canvas/Weights.md",
     "Neural Networks/canvas/Neural Netork.canvas",

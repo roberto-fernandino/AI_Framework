@@ -1,19 +1,34 @@
+use crate::utils::activation::{self, INPUT};
 use crate::utils::network::{Layers, Network};
+use rustyline::error::ReadlineError;
 use rustyline::history::MemHistory;
 use rustyline::{Config, Editor};
 use std::io::{self, Write};
+use std::{fs, net};
 
-use crate::utils::activation::{self, INPUT};
-
-pub fn input_parser(input: String) {
+pub fn input_parser(input: String, network: &mut Option<Network>) {
     match input.as_str() {
-        "create model" => create_model(),
+        "create model" => create_network(),
         "exit" => {
             println!("Exiting...");
             std::process::exit(0);
         }
         "help" => help(),
         "clear" => clear(),
+        "load model" => {
+            if let Some(ref mut new_network) = network {
+                *new_network = load_network().unwrap();
+            } else {
+                *network = load_network();
+            }
+        }
+        "represent model" => {
+            if let Some(ref network) = network {
+                network.representation();
+            } else {
+                println!("No model selected");
+            }
+        }
         _ => println!("Invalid command"),
     }
 }
@@ -38,15 +53,17 @@ pub fn logo() {
 }
 
 pub fn help() {
+    println!();
     println!("Commands:");
-    println!("create model  - Creates a new model");
+    println!("create model - Creates a new model");
+    println!("load model - Loads a model");
     println!("clear - clears the screen");
     println!("exit - Exits the program");
     println!("help - shows this help");
     println!();
 }
 
-pub fn create_model() {
+pub fn create_network() {
     print!("Enter the model name: ");
     io::stdout().flush().unwrap();
 
@@ -140,18 +157,51 @@ pub fn create_model() {
     network.ask_save(name);
 }
 
+pub fn load_network() -> Option<Network<'static>> {
+    print!("Enter the model name: ");
+    io::stdout().flush().unwrap();
+
+    let mut name = String::new();
+    io::stdin().read_line(&mut name).unwrap();
+    name.trim().to_string();
+
+    for entry in fs::read_dir("models").unwrap() {
+        let entry = entry.unwrap();
+        if entry
+            .file_name()
+            .to_str()
+            .unwrap()
+            .eq(format!("{}.json", name.trim()).as_str())
+        {
+            let network =
+                Network::load_model(format!("{}", entry.path().to_str().unwrap().to_string()));
+            let network = network.unwrap();
+            println!("Model loaded");
+            network.representation();
+            return Some(network);
+        }
+    }
+    println!("Model not found");
+    None
+}
+
 pub fn mainloop() {
     logo();
-
+    let mut selected_network: Option<Network> = None;
     let mut rl = Editor::<(), MemHistory>::with_history(Config::default(), MemHistory::new())
         .expect("Error initializing readline");
     loop {
-        let readline = rl.readline("command> ");
+        let readline: Result<String, ReadlineError>;
+        if selected_network.is_none() {
+            readline = rl.readline("command> ");
+        } else {
+            readline = rl.readline("model selected\ncommand> ");
+        }
         match readline {
             Ok(line) => {
                 rl.add_history_entry(line.as_str())
                     .expect("Failed to add history entry");
-                input_parser(line);
+                input_parser(line, &mut selected_network);
             }
             Err(_) => {
                 println!("Exiting...");
