@@ -13,6 +13,7 @@ pub fn input_parser(input: String) {
             std::process::exit(0);
         }
         "help" => help(),
+        "clear" => clear(),
         _ => println!("Invalid command"),
     }
 }
@@ -33,12 +34,16 @@ pub fn logo() {
     println!();
     println!();
     println!();
+    println!("help - show all commands");
 }
 
 pub fn help() {
     println!("Commands:");
-    println!("create model <name> <layers> <activation> - Creates a new model");
+    println!("create model  - Creates a new model");
+    println!("clear - clears the screen");
     println!("exit - Exits the program");
+    println!("help - shows this help");
+    println!();
 }
 
 pub fn create_model() {
@@ -154,4 +159,13 @@ pub fn mainloop() {
             }
         }
     }
+}
+
+pub fn clear() {
+    print!("\x1b[2J\x1b[1;1H");
+    io::stdout().flush().unwrap();
+    println!();
+    println!();
+    print!("comamand>");
+    io::stdout().flush().unwrap();
 }
