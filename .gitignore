@@ -1,3 +1,4 @@
 /target
 .aider*
 *_debug.rs
+models/*.json

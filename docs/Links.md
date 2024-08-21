@@ -2,6 +2,9 @@
 https://tome.app/market-agi/fundraising-pitch-copy-cm02n9yac0appzgmqooq114dx
 
 ## Links de fontes de notícia/informações
+
+https://www.kaggle.com/
+https://www.coinapi.io/
 https://twitter.com/Ape_31
 
 https://twitter.com/WatcherGuru
