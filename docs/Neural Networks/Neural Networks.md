@@ -140,13 +140,13 @@ By transforming input signals, activation functions allow neural networks to app
 
 **Neural Networks types**
 ---
-1. **FFN** FeedForward Neural Network
+1. **FFN** FeedForward Neural Network ( The most basic network )
 	1. Consists typically of three types of [layers](#layers).
 		1. [[#Input Layer]]
 		2. [[#Hidden Layers]]
 		3. [[#Output Layer]]
 	2. [[#Activation Functions]]: Nodes in the hidden and output layers use activation functions to introduce non-linearity into the network. Common activation functions include ReLU, Sigmoid, and Tanh.
-	3. [[#Back Propagation]]: We almost always use BackPropagation algorithms to train a FFN.
+	3. [[#Back Propagation]]: We almost always use backpropagation algorithms to train a FFN.
 		
 
 ---
@@ -247,8 +247,8 @@ The steps of the training process are:
 1. **Set Number of Epochs**:  
    The training loop runs for a predetermined number of iterations, often referred to as **epochs**. Each epoch involves feeding the network the entire training dataset once. The number of epochs is a hyperparameter that you set depending on how long you want the network to train.
 
-2. **Feedforward Process**:  
-   During each epoch, the network processes the input data by passing it through all the layers using the **Feedforward** function. This step involves calculating the weighted sum of inputs and applying activation functions to generate predictions at the output layer.
+2. **Forward Process**:  
+   During each epoch, the network processes the input data by passing it through all the layers using the forward function. This step involves calculating the weighted sum of inputs and applying activation functions to generate predictions at the output layer.
 
 3. **Error Calculation**:  
    The network compares its predictions (output) with the actual target values and calculates the error. This error quantifies how far the network's output is from the correct output and is used to adjust the network.
