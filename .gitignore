@@ -4,3 +4,5 @@
 models/*.json
 /venv
 /env
+*.csv
+*.tsv
