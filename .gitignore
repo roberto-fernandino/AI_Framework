@@ -2,3 +2,5 @@
 .aider*
 *_debug.rs
 models/*.json
+/venv
+/env
