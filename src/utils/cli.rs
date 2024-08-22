@@ -1,8 +1,11 @@
 use crate::utils::activation::{self, INPUT};
+use crate::utils::data::load_csv;
 use crate::utils::network::{Layers, Network};
+use csv::Writer;
 use rustyline::error::ReadlineError;
 use rustyline::history::MemHistory;
 use rustyline::{Config, Editor};
+use std::error::Error;
 use std::fs;
 use std::io::{self, Write};
 
@@ -34,6 +37,9 @@ pub fn input_parser(input: String, network: &mut Option<LoadedModel>) {
             } else {
                 println!("No model selected");
             }
+        }
+        "load csv" => {
+            load_csv();
         }
         "list models" => list_models(),
         _ => println!("Invalid command"),
