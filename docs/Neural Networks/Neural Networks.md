@@ -11,7 +11,7 @@ pub struct Layers<'a> {
     pub activation_vec: Vec<Activation<'a>>,
 }
 // Example
-let layers = Layers::new(vec![2, 10, 1], vec![SIGMOID, SIGMOID, SIGMOID]);
+let layers = Layers::new(vec![2, 10, 1], vec![SIGMOID, SIGMOID, SIGMOID], vec!["default", "LSTM", "default"]);
 ```
 Visually this is the network generated with this layers.
 ![[Pasted image 20240814103139.png]]
