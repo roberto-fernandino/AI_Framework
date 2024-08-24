@@ -8,4 +8,6 @@ News
 Dataset
 - [x] Normalize Day Dataset
 - [ ] Normalize Blockchain Dataset
-- [ ] Add "media movel" to day dataset
+- [x] Add "media movel" to day dataset
+
+- [ ] Find Wallets to track that normally have profit 

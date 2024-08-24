@@ -13,13 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TODO.md",
+                "file": "Neural Networks/Neural Networks.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7080d07ab4e613d2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Wallets.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -48,7 +61,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "section:(learning rate)",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TODO.md",
+                "file": "Wallets.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "TODO.md",
+                "file": "Wallets.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.md"
+                "file": "Wallets.md"
               }
             }
           },
@@ -160,12 +173,17 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "d3f8f3731892b4fe",
+  "active": "7080d07ab4e613d2",
   "lastOpenFiles": [
+    "Pasted image 20240824145442.png",
+    "Pasted image 20240824143256.png",
     "Neural Networks/Neural Networks.md",
+    "Wallets.md",
+    "Untitled",
+    "Machine Learning/Machine Learning.md",
     "Neural Networks/canvas/Weights.md",
-    "Neural Networks/canvas/Neural Netork.canvas",
     "Links.md",
+    "Neural Networks/canvas/Neural Netork.canvas",
     "TODO.md",
     "Neural Networks/images/Pasted image 20240819093339.png",
     "Neural Networks/images",
@@ -177,7 +195,6 @@
     "Neural Networks/images/Pasted image 20240819090903.png",
     "Neural Networks/images/Pasted image 20240817112607.png",
     "Neural Networks/images/Pasted image 20240817112542.png",
-    "Machine Learning/Machine Learning.md",
     "Neural Networks/canvas/Untitled.md",
     "**.md",
     "Machine Learning",
