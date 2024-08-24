@@ -74,7 +74,7 @@ def create_target_file(arquivo_original, window_size):
     df_target = df[['date', 'target_short', 'target_medium', 'target_long']]
 
     # Verifica e cria o diretório de saída se necessário
-    dir_targets = "../targets"
+    dir_targets = "../data_targets"
     os.makedirs(dir_targets, exist_ok=True)
     
     # Define o caminho completo do arquivo de saída
