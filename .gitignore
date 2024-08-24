@@ -2,7 +2,7 @@
 .aider*
 *_debug.rs
 models/*.json
-/venv
-/env
+*venv
+*env
 *.csv
 *.tsv
