@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def dividir_csv(arquivo_original, arquivo_70, arquivo_15_1, arquivo_15_2):
 
@@ -37,31 +38,51 @@ def categorize_change(change):
         return -0.5
     else:
         return -1.0
+    
 
-def process_csv(arquivo_csv):
+
+def create_target_file(arquivo_original, window_size):
+
+    '''
+        Cria um arquivo CSV com as categorizações de variação percentual para diferentes horizontes temporais.
+            :param arquivo_original: Caminho para o arquivo CSV de entrada
+            :param window_size: Tamanho da janela para a média móvel
+    '''
     # Carrega o arquivo CSV
-    df = pd.read_csv(arquivo_csv)
+    df = pd.read_csv(arquivo_original)
 
+    # Verifica se a coluna 'MA_{window_size}' existe no DataFrame
+    ma_column = f'MA_{window_size}'
     # Preenche valores ausentes com NaN e remove as linhas que possuem NaN
-    df['MA_2'] = pd.to_numeric(df['MA_2'], errors='coerce')
-    df.dropna(subset=['MA_2'], inplace=True)
+    df[ma_column] = pd.to_numeric(df[ma_column], errors='coerce')
+    df.dropna(subset=[ma_column], inplace=True)
+    
+    
+    df = df[:-1]
 
-    df['MA_2_change_short'] = df['MA_2'].pct_change(periods=3) * 100  # Curto prazo (1-3 dias)
-    df['MA_2_change_medium'] = df['MA_2'].pct_change(periods=10) * 100  # Médio prazo (1-2 semanas)
-    df['MA_2_change_long'] = df['MA_2'].pct_change(periods=60) * 100  # Longo prazo (1-3 meses)
+    # Calcula a variação percentual para diferentes horizontes temporais
+    df[f'{ma_column}_change_short'] = df[ma_column].pct_change(periods=3) * 100  # Curto prazo (1-3 dias)
+    df[f'{ma_column}_change_medium'] = df[ma_column].pct_change(periods=10) * 100  # Médio prazo (1-2 semanas)
+    df[f'{ma_column}_change_long'] = df[ma_column].pct_change(periods=60) * 100  # Longo prazo (1-3 meses)
 
     # Aplica a categorização para cada horizonte temporal
-    df['target_short'] = df['MA_2_change_short'].apply(categorize_change)
-    df['target_medium'] = df['MA_2_change_medium'].apply(categorize_change)
-    df['target_long'] = df['MA_2_change_long'].apply(categorize_change)
+    df['target_short'] = df[f'{ma_column}_change_short'].apply(categorize_change)
+    df['target_medium'] = df[f'{ma_column}_change_medium'].apply(categorize_change)
+    df['target_long'] = df[f'{ma_column}_change_long'].apply(categorize_change)
 
+    # Cria um novo DataFrame com as colunas de interesse
     df_target = df[['date', 'target_short', 'target_medium', 'target_long']]
 
+    # Verifica e cria o diretório de saída se necessário
+    dir_targets = "../targets"
+    os.makedirs(dir_targets, exist_ok=True)
+    
+    # Define o caminho completo do arquivo de saída
+    output_file = os.path.join(dir_targets, f'target_{os.path.basename(arquivo_original)}')
+
     # Salva o resultado em um novo arquivo CSV
-    df_target.to_csv('arquivo_target_horizontes.csv', index=False)
+    df_target.to_csv(output_file, index=False)
+    print(f"Arquivo salvo com sucesso em {output_file}")
 
-    #print(df_target.head(10))
 
-# Exemplo de uso
-arquivo_original = 'btc-swing-2.csv'
-process_csv(arquivo_original)
+

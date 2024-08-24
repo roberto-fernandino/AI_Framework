@@ -1,85 +1,85 @@
-import csv
+import os
 from time import sleep
 import pandas as pd
-from datetime import datetime
-
-
-def fix_time(input_file):
-    timestamps = []
-    with open(f"{input_file}.csv", mode="r", newline="") as infile:
-        reader = csv.reader(infile)
-        for i, row in enumerate(reader):
-            if i == 0:
-                continue  # Skip header
-            date_time = datetime.strptime(row[0], "%Y-%m-%d")
-            timestamps.append(date_time.timestamp())
-
-    min_timestamp = min(timestamps)
-    max_timestamp = max(timestamps)
-    normalized_timestamps = [
-        (timestamp - min_timestamp) / (max_timestamp - min_timestamp)
-        for timestamp in timestamps
-    ]
-
-    # Rewriting the CSV with normalized timestamps
-    with open(f"{input_file}.csv", mode="r", newline="") as infile:
-        reader = csv.reader(infile)
-        rows = list(reader)  # Read all rows into a list
-
-    with open(f"{input_file}.csv", mode="w", newline="") as outfile:
-        writer = csv.writer(outfile)
-        for i, row in enumerate(rows):
-            if i == 0:
-                writer.writerow(row)  # Write header
-            else:
-                row[0] = normalized_timestamps[i - 1]
-                writer.writerow(row)
-
-
-
-
-def add_moving_average(input_file, output_file=None, window_size=5, date_format=None):
-    # Ler o arquivo CSV
-    df = pd.read_csv(input_file)
-    print("DataFrame antes de processar:", df.head())
-
-    # Verificar e converter a coluna 'date' para datetime
-    if 'date' in df.columns:
-        df["date"] = pd.to_datetime(df["date"], format=date_format)
-    else:
-        print("Coluna 'date' não encontrada.")
-        return
-
-    # Definir 'date' como o índice
-    df.set_index("date", inplace=True)
-
-    # Converter colunas de preço para float
-    price_columns = ["open", "high", "low", "close"]
-    for col in price_columns:
-        df[col] = df[col].astype(float)
-
-    # Calcular a média móvel do preço de fechamento
-    df[f"MA_{window_size}"] = df["close"].rolling(window=window_size).mean()
-
-    # Resetar o índice para tornar 'date' uma coluna novamente
-    df.reset_index(inplace=True)
-    print("DataFrame após calcular a média móvel:", df.head())
-
-    # Salvar para CSV se 'output_file' for especificado
-    if output_file:
-        df.to_csv(output_file, index=False)
-        print(f"Dados salvos em {output_file}")
-
-    return df
+from Division_and_Process import dividir_csv, create_target_file
+from FixTime_and_MovingAverage import fix_time, add_moving_average
 
 def main():
-    ma = int(input("Enter the window size for the moving average: "))
-    input_file = input("Enter the input file name: ")
-    output_file = input("Enter the output file name: ")
-    add_moving_average(f"{input_file}.csv", f"{output_file}.csv", window_size=ma)
-    sleep(1)
-    fix_time(output_file)
 
+    '''
 
-if __name__ == "__main__":
-    main()
+    # Os arquivos CSV devem estar na pasta data
+    # Os arquivos de saída serão salvos nas pastas targets e data_ia
+    # Serão criados 7 arquivos de saída:
+    # 1 arquivo - moving_average_{arquivo_csv}.csv -- Pasta data_ia
+    # 3 arquivos - {arquivo_csv}_treino_70.csv, {arquivo_csv}_teste_15.csv, {arquivo_csv}_validacao_15.csv -- Pasta data_ia
+    # 3 arquivos- target_{arquivo_csv}.csv -- Pasta targets
+
+    '''
+    escolha_trade = int(input("[0] - CSV Swing Trade\n[1] - CSV Day Trade\n[2] - Sair\n"))
+    while(escolha_trade != 2):
+        if escolha_trade == 0:
+            arquivo_csv = str(input("Digite o nome do arquivo CSV para SwingTrade -- Sem a extensão .csv: "))
+
+            # Diretório onde os arquivos CSV estão localizados
+            dir_data = "../data/"
+            caminho_completo_csv = os.path.join(dir_data, f"{arquivo_csv}.csv")
+
+            escolha_preparacao_arquivo = int(input("[0] - Voltar\n[1] - Fix Time\n[2] - Add Moving Average\n[3] - Create Target File\n[4] - Division of the .csv file\n[5] - Full Preparation\n"))
+            
+            # Definindo os diretórios de saída
+            dir_targets = "../targets"
+            dir_data_ia = "../data_ia"
+
+            # Certificando-se de que os diretórios existem
+            os.makedirs(dir_targets, exist_ok=True)
+            os.makedirs(dir_data_ia, exist_ok=True)
+
+            if escolha_preparacao_arquivo == 0:
+                continue
+            elif escolha_preparacao_arquivo == 1:
+                fix_time(caminho_completo_csv)
+            elif escolha_preparacao_arquivo == 2:
+                ma = int(input("Enter the window size for the moving average: "))
+                add_moving_average(caminho_completo_csv, os.path.join(dir_data_ia, f"moving_average_{arquivo_csv}.csv"), window_size=ma)
+            elif escolha_preparacao_arquivo == 3:
+                print("Remember to use the same window size that was used to the moving average!")
+                ma = int(input("Enter the window size for the moving average: "))
+                create_target_file(caminho_completo_csv, window_size=ma)
+            elif escolha_preparacao_arquivo == 4:
+                dividir_csv(caminho_completo_csv,
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_treino_70.csv"),
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_teste_15.csv"),
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_validacao_15.csv"))
+            elif escolha_preparacao_arquivo == 5:
+                ma = int(input("Enter the window size for the moving average: "))
+                add_moving_average(caminho_completo_csv, os.path.join(dir_data_ia, f"moving_average_{arquivo_csv}.csv"), window_size=ma)
+                sleep(1)
+                fix_time(caminho_completo_csv)
+                sleep(1)
+                dividir_csv(caminho_completo_csv,
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_treino_70.csv"),
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_teste_15.csv"),
+                            os.path.join(dir_data_ia, f"{arquivo_csv}_validacao_15.csv"))
+                nome_arquivos = [
+                    os.path.join(dir_data_ia, f"{arquivo_csv}_treino_70.csv"),
+                    os.path.join(dir_data_ia, f"{arquivo_csv}_teste_15.csv"),
+                    os.path.join(dir_data_ia, f"{arquivo_csv}_validacao_15.csv")
+                ]
+                print(nome_arquivos)
+                sleep(1)
+                for arquivo in nome_arquivos:
+                    create_target_file(arquivo, window_size=ma)
+
+        elif escolha_trade == 1:
+            #arquivo_csv = str(input("Digite o nome do arquivo CSV para DayTrade: "))
+            print("Coming Soon..")
+            escolha_trade = int(input("[0] - CSV Swing Trade\n[1] - CSV Day Trade\n[2] - Sair\n"))
+            
+        elif escolha_trade == 2:
+            print("Exiting..")
+            return
+        else:
+            print("Opção inválida - Tente Novamente!")
+            escolha_trade = int(input("[0] - CSV Swing Trade\n[1] - CSV Day Trade\n[2] - Sair\n"))
+main()
